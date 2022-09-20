@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils.html import mark_safe
+from django.utils.text import slugify
 
 
 class Category(models.Model):
@@ -14,6 +16,12 @@ class Category(models.Model):
 
     class Meta:
         verbose_name_plural = 'Categories'
+
+    def save(self):
+        super(Category, self).save()
+        if not self.slug:
+            self.slug = slugify(self.title) + '-' + str(self.id)
+            super(Category, self).save()
 
     def __str__(self):
         return f'{self.category_name}'
@@ -57,6 +65,10 @@ class Product(models.Model):
         verbose_name='Updated',
         auto_now=True
     )
+    product_image = models.ManyToManyField(
+        'Images',
+        verbose_name='Image'
+    )
 
     class Meta:
         verbose_name_plural = 'Products'
@@ -78,3 +90,19 @@ class Images(models.Model):
     image = models.ImageField(
         upload_to='images/'
     )
+    added = models.DateTimeField(
+        auto_now_add=True,
+    )
+
+    class Meta:
+        verbose_name_plural = 'Images'
+        ordering = ('-added', '-image_name')
+
+    def __str__(self):
+        return self.image_name
+
+    @property
+    def show_in_admin(self):
+        if self.image:
+            return mark_safe('<img src="{}" width="300" height="300" />'.format(self.image.url))
+        return 'There is no valid image'
