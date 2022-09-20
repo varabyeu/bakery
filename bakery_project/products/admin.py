@@ -14,14 +14,14 @@ class CategoryAdmin(admin.ModelAdmin):
 class ProductAdmin(admin.ModelAdmin):
     list_display = [
         'product_name', 'category', 'price',
-        'is_new', 'is_active', 'created',
+        'is_new', 'is_active', 'created', 'mass'
     ]
     list_filters = [
         'category', 'price', 'product_name', 'is_new',
         'is_active', 'created',
     ]
     list_editable = [
-        'price', 'is_new', 'is_active'
+        'price', 'is_new', 'is_active',
     ]
     list_display_links = ['product_name', ]
 

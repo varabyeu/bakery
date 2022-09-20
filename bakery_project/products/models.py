@@ -69,6 +69,9 @@ class Product(models.Model):
         'Images',
         verbose_name='Image'
     )
+    mass = models.PositiveIntegerField(
+        verbose_name='Product mass in g',
+    )
 
     class Meta:
         verbose_name_plural = 'Products'
