@@ -17,10 +17,10 @@ class Category(models.Model):
     class Meta:
         verbose_name_plural = 'Categories'
 
-    def save(self):
-        super(Category, self).save()
+    def save(self, *args, **kwargs):
+        super(Category, self).save(*args, **kwargs)
         if not self.slug:
-            self.slug = slugify(self.title) + '-' + str(self.id)
+            self.slug = slugify(self.category_name) + '-' + str(self.id)
             super(Category, self).save()
 
     def __str__(self):
@@ -67,7 +67,7 @@ class Product(models.Model):
     )
     product_image = models.ManyToManyField(
         'Images',
-        verbose_name='Image'
+        verbose_name='Image',
     )
     mass = models.PositiveIntegerField(
         verbose_name='Product mass in g',
