@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
 
-    'products'
+    'products',
+    'orders'
 ]
 
 MIDDLEWARE = [
@@ -140,4 +141,3 @@ CORS_ORIGIN_WHITELIST = (
     'http://localhost:3000',
     'http://localhost:8000',
 )
-
